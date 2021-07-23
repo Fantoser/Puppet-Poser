@@ -1,0 +1,160 @@
+[gd_scene format=2]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.310791
+margin_top = -3.31845
+margin_right = 0.310791
+margin_bottom = -3.31848
+__meta__ = {
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 11.3544 ]
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 181.0
+margin_bottom = 603.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 88.6615, 98.4403 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = 67.8834
+margin_top = 153.573
+margin_right = 110.883
+margin_bottom = 167.573
+text = "IMAGE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character menu" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Character menu"]
+margin_top = 13.0
+margin_right = 180.0
+margin_bottom = 582.0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="Label" parent="Character menu/VBoxContainer"]
+margin_right = 180.0
+margin_bottom = 14.0
+text = "CHARACTER"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Save Character" type="Button" parent="Character menu/VBoxContainer"]
+margin_left = 10.0
+margin_top = 18.0
+margin_right = 170.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 160, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "SAVE CHARACTER"
+
+[node name="Load Character" type="Button" parent="Character menu/VBoxContainer"]
+margin_left = 10.0
+margin_top = 42.0
+margin_right = 170.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 160, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "LOAD CHARACTER"
+
+[node name="Label" type="Label" parent="Character menu/VBoxContainer"]
+margin_left = 10.0
+margin_top = 66.0
+margin_right = 170.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 4
+text = "NAME"
+
+[node name="TextEdit" type="TextEdit" parent="Character menu/VBoxContainer"]
+margin_left = 10.0
+margin_top = 84.0
+margin_right = 170.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 160, 20 )
+size_flags_horizontal = 4
+
+[node name="Label2" type="Label" parent="Character menu/VBoxContainer"]
+margin_left = 10.0
+margin_top = 108.0
+margin_right = 170.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 160, 30 )
+size_flags_horizontal = 4
+text = "POSE LIBRARY"
+valign = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Character menu/VBoxContainer"]
+margin_top = 142.0
+margin_right = 180.0
+margin_bottom = 569.0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Character menu/VBoxContainer/HBoxContainer2"]
+margin_left = 11.0
+margin_right = 124.0
+margin_bottom = 427.0
+rect_min_size = Vector2( 113, 0 )
+size_flags_horizontal = 5
+size_flags_vertical = 3
+
+[node name="TextEdit2" type="TextEdit" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 113.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 75, 20 )
+
+[node name="ItemList" type="ItemList" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 24.0
+margin_right = 113.0
+margin_bottom = 427.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Character menu/VBoxContainer/HBoxContainer2"]
+margin_left = 128.0
+margin_right = 169.0
+margin_bottom = 427.0
+size_flags_horizontal = 5
+
+[node name="Save Pose" type="Button" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 41.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "ADD"
+
+[node name="Button" type="Button" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 41.0
+margin_bottom = 44.0
+text = "DEL"
