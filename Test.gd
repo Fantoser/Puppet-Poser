@@ -1,6 +1,7 @@
 extends Node2D
 
 signal body_clicked(bodypart)
+signal voidClick()
 
 var limb = preload("res://FKLimb.tscn")
 var body = {
@@ -49,11 +50,9 @@ func setLimb(limb, nameArray, position, rotation):
 	limb.global_position += position
 	limb.global_rotation_degrees += rotation
 	limb.rename(limb.get_child(0), nameArray, self)
-	pass
 
-func emit_body_signal(button):
-	emit_signal("body_clicked", button)
-	pass
+func emit_body_signal(bodypart):
+	emit_signal("body_clicked", bodypart)
 
 func _process(delta):
 	if Input.is_action_just_pressed("W"):
@@ -66,3 +65,8 @@ func _process(delta):
 
 func _on_body_HUD_state(state):
 	$HUD.HUD_active = state
+
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if event.is_action_pressed("mouseLeft"):
+		emit_signal("voidClick")

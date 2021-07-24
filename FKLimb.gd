@@ -48,7 +48,7 @@ func add_button(parent):
 		#Position of the button
 #		button.rect_position = parent.get_child(0).position - button.rect_pivot_offset
 		parent.add_child(button)
-		var sprite = parent.get_child(1).get_child(0)
+		var sprite = parent.get_child(2)
 		var buttonDistance = sprite.texture.get_height() * sprite.scale.y
 		var direction = Vector2(cos(button.get_parent().get_child(0).rotation), sin(button.get_parent().get_child(0).rotation))
 		button.rect_position = Vector2(0, -button.rect_size.y/2)
@@ -56,24 +56,26 @@ func add_button(parent):
 #		button.rect_position += direction * buttonDistance
 		#Set connections for grabbing the button and releasing it
 		button.connect("button_down", self, "start_moving", [button, parent])
-		button.connect("button_up", self, "stop_moving")
+		button.connect("button_up", self, "stop_moving", [button])
 		buttons.append(button)
 
-func start_moving(currentTarget, currentLimb):
+func start_moving(currentButton, currentLimb):
 	moving = true
-	target = currentTarget
+	target = currentButton
 	limb = currentLimb
 #	print(currentTarget.get_parent().name)
 	emit_HUD_signal(false)
 
-func stop_moving():
+func stop_moving(currentButton):
 	moving = false
 	distance = null
 	#Positioning the button
-	var sprite = target.get_parent().get_child(1).get_child(0)
+	var sprite = currentButton.get_parent().get_child(2)
 	var buttonDistance = sprite.texture.get_height() * sprite.scale.y
-	target.rect_position = Vector2(0, -target.rect_size.y/2)
-	target.rect_position.x += buttonDistance
+	currentButton.rect_position = Vector2(0, -currentButton.rect_size.y/2)
+	currentButton.rect_position.x += buttonDistance
+	if sprite.get_parent().get_child_count() > 2:
+		sprite.get_parent().get_child(0).position.x = buttonDistance
 	emit_HUD_signal(true)
 
 func emit_HUD_signal(state):
@@ -103,9 +105,9 @@ func move_base(state):
 
 func rename(limb, names, editor):
 	if limb.get_child_count() > 1 and names.size() > 0:
-		limb.get_child(1).get_child(0).name = names[0]
+		limb.get_child(1).name = names[0]
 		editor.body[names[0]]["object"] = limb.get_child(1).get_child(0)
-		limb.get_child(1).connect("button_down", editor, "emit_body_signal", [limb.get_child(1).get_child(0)])
+		limb.get_child(1).connect("button_down", editor, "emit_body_signal", [limb.get_child(2)])
 		names.pop_front()
 		rename(limb.get_child(0), names, editor)
 
@@ -128,3 +130,8 @@ func _draw():
 
 #		draw_circle(to_local(j_pos), 5, col)
 #		draw_line(to_local(j_pos), to_local(c_pos), col, 5)
+
+
+func _on_HUD_scale_changed(button):
+	stop_moving(button)
+#	print(bodypart.get_parent().get_parent().get_child(2))
