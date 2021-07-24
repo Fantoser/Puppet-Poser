@@ -1,5 +1,6 @@
 extends Node2D
 
+signal HUD_state(state)
 
 var joints = []
 var buttons = []
@@ -8,7 +9,6 @@ var distance = null
 var moving = false
 var target = null
 var limb = null
-var parent = null
 var movebase = false
 
 # Called when the node enters the scene tree for the first time.
@@ -45,21 +45,39 @@ func add_button(parent):
 		button.rect_size.y = 22
 		button.rect_pivot_offset = button.rect_size/2
 		button.set_focus_mode(0)
-		button.rect_position = parent.get_child(0).position - button.rect_pivot_offset
+		#Position of the button
+#		button.rect_position = parent.get_child(0).position - button.rect_pivot_offset
+		parent.add_child(button)
+		var sprite = parent.get_child(1).get_child(0)
+		var buttonDistance = sprite.texture.get_height() * sprite.scale.y
+		var direction = Vector2(cos(button.get_parent().get_child(0).rotation), sin(button.get_parent().get_child(0).rotation))
+		button.rect_position = Vector2(0, -button.rect_size.y/2)
+		button.rect_position.x += buttonDistance
+#		button.rect_position += direction * buttonDistance
+		#Set connections for grabbing the button and releasing it
 		button.connect("button_down", self, "start_moving", [button, parent])
 		button.connect("button_up", self, "stop_moving")
-		parent.add_child(button)
 		buttons.append(button)
 
 func start_moving(currentTarget, currentLimb):
 	moving = true
 	target = currentTarget
 	limb = currentLimb
+#	print(currentTarget.get_parent().name)
+	emit_HUD_signal(false)
 
 func stop_moving():
 	moving = false
 	distance = null
-	target.rect_position = target.get_parent().get_child(0).position - target.rect_pivot_offset
+	#Positioning the button
+	var sprite = target.get_parent().get_child(1).get_child(0)
+	var buttonDistance = sprite.texture.get_height() * sprite.scale.y
+	target.rect_position = Vector2(0, -target.rect_size.y/2)
+	target.rect_position.x += buttonDistance
+	emit_HUD_signal(true)
+
+func emit_HUD_signal(state):
+	emit_signal("HUD_state", state)
 
 func calc_fk(target, limb):
 	if distance == null:
@@ -83,10 +101,13 @@ func set_distance(limb, distance):
 func move_base(state):
 	movebase = state
 
-func rename(names):
-	for i in range(get_child_count()):
-		if get_child(i).get_child_count() > 0:
-			get_child(i).get_child(1).name = names[i]
+func rename(limb, names, editor):
+	if limb.get_child_count() > 1 and names.size() > 0:
+		limb.get_child(1).get_child(0).name = names[0]
+		editor.body[names[0]]["object"] = limb.get_child(1).get_child(0)
+		limb.get_child(1).connect("button_down", editor, "emit_body_signal", [limb.get_child(1).get_child(0)])
+		names.pop_front()
+		rename(limb.get_child(0), names, editor)
 
 func _process(delta):
 	update()
