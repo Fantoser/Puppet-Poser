@@ -4,35 +4,35 @@ signal body_clicked(bodypart)
 signal voidClick()
 
 var limb = preload("res://FKLimb.tscn")
+var arm = preload("res://FKArm.tscn")
 var body = {
-	Hips = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Middle = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Chest = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Left_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Left_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Left_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Right_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Right_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Right_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Neck = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	Head = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]}
+	hips = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	middle = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	chest = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	left_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	left_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	left_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	right_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	right_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	right_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	neck = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
+	head = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]}
 }
 
 func _ready():
 
-	setLimb($FKLimb, ["Hips", "Middle", "Chest"], Vector2(0, 0), -90)
+	setLimb($FKLimb, ["hips", "middle", "chest"], Vector2(0, 0), -90)
 	$FKLimb.set_z_index(-1)
 
-	var leftarm = limb.instance()
+	var leftarm = arm.instance()
 	$FKLimb.get_node("first/second/third/fourth").add_child(leftarm)
-	setLimb(leftarm, ["Left_arm", "Left_forearm", "Left_hand"], Vector2(100, 0), 90)
-#	leftarm.get_limbs()
+	setLimb(leftarm, ["left_arm", "left_forearm", "left_hand"], Vector2(100, 0), 90)
 	leftarm.set_z_index(1)
 	leftarm.connect("HUD_state", $FKLimb, "emit_HUD_signal")
 
-	var rightarm = limb.instance()
+	var rightarm = arm.instance()
 	$FKLimb.get_node("first/second/third/fourth").add_child(rightarm)
-	setLimb(rightarm, ["Right_arm", "Right_forearm", "Right_hand"], Vector2(-100, 0), -90)
+	setLimb(rightarm, ["right_arm", "right_forearm", "right_hand"], Vector2(-100, 0), -90)
 	rightarm.set_z_index(1)
 	rightarm.connect("HUD_state", $FKLimb, "emit_HUD_signal")
 
@@ -41,7 +41,7 @@ func _ready():
 	for child in neck.get_node("first/second/third").get_children():
 		child.queue_free()
 #	neck.get_node("first/second").get_child(2).queue_free()
-	setLimb(neck, ["Neck", "Head"], Vector2(0, -30), 0)
+	setLimb(neck, ["neck", "head"], Vector2(0, -30), 0)
 	neck.set_z_index(1)
 	neck.connect("HUD_state", $FKLimb, "emit_HUD_signal")
 	

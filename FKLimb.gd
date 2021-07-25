@@ -59,6 +59,9 @@ func add_button(parent):
 		button.connect("button_up", self, "stop_moving", [button])
 		buttons.append(button)
 
+func convert_to_arm():
+	pass
+
 func start_moving(currentButton, currentLimb):
 	moving = true
 	target = currentButton
@@ -72,6 +75,8 @@ func stop_moving(currentButton):
 	#Positioning the button
 	var sprite = currentButton.get_parent().get_child(2)
 	var buttonDistance = sprite.texture.get_height() * sprite.scale.y
+	if sprite.rotation == 0:
+		buttonDistance = sprite.texture.get_width() * sprite.scale.x
 	currentButton.rect_position = Vector2(0, -currentButton.rect_size.y/2)
 	currentButton.rect_position.x += buttonDistance
 	if sprite.get_parent().get_child_count() > 2:
