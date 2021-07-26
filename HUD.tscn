@@ -8,10 +8,10 @@
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.310791
-margin_top = -3.31845
-margin_right = 0.310791
-margin_bottom = -3.31848
+margin_left = 3.87439
+margin_top = -5.99115
+margin_right = 3.87439
+margin_bottom = -5.99121
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -43,6 +43,7 @@ __meta__ = {
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -72,6 +73,7 @@ margin_right = 183.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 160, 0 )
 focus_mode = 0
+mouse_filter = 1
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "SAVE CHARACTER"
@@ -83,6 +85,7 @@ margin_right = 183.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 160, 0 )
 focus_mode = 0
+mouse_filter = 1
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "LOAD CHARACTER"
@@ -102,6 +105,7 @@ margin_top = 84.0
 margin_right = 183.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 160, 20 )
+mouse_filter = 1
 size_flags_horizontal = 4
 
 [node name="Pose Library" type="Label" parent="Character menu/VBoxContainer"]
@@ -137,12 +141,14 @@ size_flags_vertical = 3
 margin_right = 125.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 75, 20 )
+mouse_filter = 1
 
 [node name="ItemList" type="ItemList" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 24.0
 margin_right = 125.0
 margin_bottom = 427.0
 rect_min_size = Vector2( 0, 100 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -157,6 +163,7 @@ margin_right = 28.0
 margin_bottom = 22.0
 hint_tooltip = "Add pose to the list, or if a list element selected, rename it."
 focus_mode = 0
+mouse_filter = 1
 enabled_focus_mode = 0
 icon = ExtResource( 1 )
 
@@ -164,11 +171,13 @@ icon = ExtResource( 1 )
 margin_top = 26.0
 margin_right = 28.0
 margin_bottom = 48.0
+mouse_filter = 1
 icon = ExtResource( 2 )
 
 [node name="Bodypart" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 1
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -184,7 +193,7 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_right = 212.0
+margin_right = 207.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 text = "NAME"
@@ -194,20 +203,21 @@ __meta__ = {
 }
 
 [node name="Add Object" type="Button" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 24.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 160, 10 )
 focus_mode = 0
+mouse_filter = 1
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "ADD OBJECT"
 
 [node name="Position" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 48.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
@@ -215,9 +225,9 @@ text = "POSITION"
 valign = 2
 
 [node name="Horizontal" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 14.0
+margin_left = 12.0
 margin_top = 82.0
-margin_right = 197.0
+margin_right = 195.0
 margin_bottom = 106.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 4
@@ -235,6 +245,7 @@ text = "X:"
 margin_left = 16.0
 margin_right = 90.0
 margin_bottom = 24.0
+mouse_filter = 1
 min_value = -1e+18
 max_value = 1e+18
 allow_greater = true
@@ -251,15 +262,16 @@ text = "Y:"
 margin_left = 109.0
 margin_right = 183.0
 margin_bottom = 24.0
+mouse_filter = 1
 min_value = -1e+18
 max_value = 1e+18
 allow_greater = true
 allow_lesser = true
 
 [node name="Scale" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 110.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
@@ -267,9 +279,9 @@ text = "SCALE"
 valign = 2
 
 [node name="Horizontal2" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 14.0
+margin_left = 12.0
 margin_top = 144.0
-margin_right = 197.0
+margin_right = 195.0
 margin_bottom = 168.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 4
@@ -305,6 +317,7 @@ text = "Y:"
 margin_left = 109.0
 margin_right = 183.0
 margin_bottom = 24.0
+mouse_filter = 1
 min_value = -1e+18
 max_value = 1e+18
 step = 0.1
@@ -313,9 +326,9 @@ allow_greater = true
 allow_lesser = true
 
 [node name="Horizontal3" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 172.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 212.0
 rect_min_size = Vector2( 160, 40 )
 size_flags_horizontal = 4
@@ -339,15 +352,16 @@ margin_left = 72.0
 margin_top = 16.0
 margin_right = 146.0
 margin_bottom = 40.0
+mouse_filter = 1
 size_flags_vertical = 8
 min_value = -180.0
 max_value = 180.0
 suffix = "°"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 36.0
+margin_left = 28.0
 margin_top = 216.0
-margin_right = 176.0
+margin_right = 179.0
 margin_bottom = 256.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
@@ -362,6 +376,9 @@ margin_right = 41.0
 margin_bottom = 40.0
 size_flags_vertical = 8
 text = "FLIP H"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CheckBox" type="CheckBox" parent="Bodypart/VBoxContainer2/HBoxContainer"]
 margin_left = 45.0
@@ -369,28 +386,32 @@ margin_top = 16.0
 margin_right = 69.0
 margin_bottom = 40.0
 focus_mode = 0
+mouse_filter = 1
 size_flags_vertical = 8
 
 [node name="Flip V" type="Label" parent="Bodypart/VBoxContainer2/HBoxContainer"]
 margin_left = 73.0
 margin_top = 26.0
-margin_right = 112.0
+margin_right = 123.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 50, 0 )
 size_flags_vertical = 8
 text = "FLIP V"
+align = 2
 
 [node name="CheckBox2" type="CheckBox" parent="Bodypart/VBoxContainer2/HBoxContainer"]
-margin_left = 116.0
+margin_left = 127.0
 margin_top = 16.0
-margin_right = 140.0
+margin_right = 151.0
 margin_bottom = 40.0
 focus_mode = 0
+mouse_filter = 1
 size_flags_vertical = 8
 
 [node name="Horizontal4" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 260.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 160, 40 )
 size_flags_horizontal = 4
@@ -414,12 +435,13 @@ margin_left = 72.0
 margin_top = 16.0
 margin_right = 146.0
 margin_bottom = 40.0
+mouse_filter = 1
 size_flags_vertical = 8
 
 [node name="Image" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 304.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 334.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
@@ -427,20 +449,21 @@ text = "IMAGE"
 valign = 2
 
 [node name="ImageList" type="ItemList" parent="Bodypart/VBoxContainer2"]
-margin_left = 16.0
+margin_left = 13.0
 margin_top = 338.0
-margin_right = 196.0
+margin_right = 193.0
 margin_bottom = 438.0
 rect_min_size = Vector2( 180, 100 )
+mouse_filter = 1
 size_flags_horizontal = 4
 max_columns = 2
 icon_mode = 0
 fixed_icon_size = Vector2( 73, 73 )
 
 [node name="Perspective" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 442.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 472.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
@@ -448,17 +471,18 @@ text = "PERSPECTIVE"
 valign = 2
 
 [node name="PerspectiveList" type="OptionButton" parent="Bodypart/VBoxContainer2"]
-margin_left = 16.0
+margin_left = 13.0
 margin_top = 476.0
-margin_right = 196.0
+margin_right = 193.0
 margin_bottom = 496.0
 rect_min_size = Vector2( 180, 0 )
+mouse_filter = 1
 size_flags_horizontal = 4
 
 [node name="Version" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 26.0
+margin_left = 23.0
 margin_top = 500.0
-margin_right = 186.0
+margin_right = 183.0
 margin_bottom = 530.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
@@ -466,4 +490,16 @@ text = "VERSION"
 valign = 2
 
 [connection signal="focus_entered" from="." to="." method="_on_HUD_focus_entered"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal3/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal3/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal4/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal4/SpinBox2" to="." method="_on_mouse_exited"]
 [connection signal="item_activated" from="Bodypart/VBoxContainer2/ImageList" to="." method="_on_ImageList_item_activated"]

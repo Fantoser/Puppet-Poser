@@ -16,6 +16,7 @@ var bodyimage = {
 var bodypart = null
 var bodyparent = null
 var HUD_active = true
+var focus = false
 onready var posXBox = get_node("Bodypart/VBoxContainer2/Horizontal/SpinBox")
 onready var posYBox = get_node("Bodypart/VBoxContainer2/Horizontal/SpinBox2")
 onready var rotateBox = get_node("Bodypart/VBoxContainer2/Horizontal3/SpinBox2")
@@ -23,6 +24,8 @@ onready var scaleXBox = get_node("Bodypart/VBoxContainer2/Horizontal2/SpinBox2")
 onready var scaleYBox = get_node("Bodypart/VBoxContainer2/Horizontal2/SpinBox")
 onready var zindexBox = get_node("Bodypart/VBoxContainer2/Horizontal4/SpinBox2")
 onready var imgList = get_node("Bodypart/VBoxContainer2/ImageList")
+onready var flipH = get_node("Bodypart/VBoxContainer2/HBoxContainer/CheckBox")
+onready var flipV = get_node("Bodypart/VBoxContainer2/HBoxContainer/CheckBox2")
 
 
 func _ready():
@@ -39,6 +42,9 @@ func _process(delta):
 			bodyparent.position.y = posXBox.value
 			#Rotation
 			bodyparent.global_rotation_degrees = rotateBox.value
+			#Flip
+			bodypart.flip_h = flipH.pressed
+			bodypart.flip_v = flipV.pressed
 			#Scale
 			if floor(bodypart.rotation_degrees) == 90:
 				if bodypart.scale.x != scaleXBox.value:
@@ -60,7 +66,7 @@ func _process(delta):
 					_on_scaleY_value_changed()
 			#Z index
 			bodyparent.z_index = zindexBox.value
-		else: #Set values in the HUD when clicking on the body
+		else: #Set values in the HUD when changing on the body
 			#Position
 			posYBox.value = bodyparent.position.x
 			posXBox.value = bodyparent.position.y
@@ -77,15 +83,21 @@ func _on_body_bodypart_clicked(chosenBodypart):
 	get_node("Bodypart/VBoxContainer2/Name").text = bodyparent.get_child(1).name.to_upper()
 	posYBox.value = bodyparent.position.x
 	posXBox.value = bodyparent.position.y
+	#Rotation
 	rotateBox.value = bodypart.get_parent().global_rotation_degrees
-	#!!!!!!!!!
+	#Flip
+	flipH.pressed = bodypart.flip_h
+	flipV.pressed = bodypart.flip_v
+	#Scale
 	if floor(bodypart.rotation_degrees) == 90:
 		scaleXBox.value = bodypart.scale.x
 		scaleYBox.value = bodypart.scale.y
 	else:
 		scaleXBox.value = bodypart.scale.y
 		scaleYBox.value = bodypart.scale.x
+	#Z index
 	zindexBox.value = bodyparent.z_index
+	#Image list
 	imgList.clear()
 	for part in bodyimage[partName]:
 		imgList.add_item(part[0], part[1])
@@ -126,4 +138,22 @@ func loadFolder(partname):
 
 func _on_ImageList_item_activated(index):
 	bodypart.texture = imgList.get_item_icon(index)
+	if floor(bodypart.rotation_degrees) == 90:
+		bodypart.get_parent().get_child(1).rect_size = bodypart.texture.get_size()
+	else:
+		bodypart.get_parent().get_child(1).rect_size.x = bodypart.texture.get_height()
+		bodypart.get_parent().get_child(1).rect_size.y = bodypart.texture.get_width()
 	_on_scaleY_value_changed()
+	_on_scaleX_value_changed()
+
+
+func _HUDstate(state):
+	HUD_active = state
+
+
+func _on_mouse_entered():
+	focus = true
+
+
+func _on_mouse_exited():
+	focus = false

@@ -21,7 +21,9 @@ position = Vector2( 34.7766, 67.2912 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 816.78
+margin_top = -0.991149
 margin_right = 816.78
+margin_bottom = -0.991149
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -29,8 +31,9 @@ margin_right = 816.78
 position = Vector2( 408.404, 301.751 )
 shape = SubResource( 1 )
 
+[connection signal="HUDstate" from="." to="FKLimb" method="_HUDstate"]
+[connection signal="HUDstate" from="." to="HUD" method="_HUDstate"]
 [connection signal="body_clicked" from="." to="HUD" method="_on_body_bodypart_clicked"]
 [connection signal="voidClick" from="." to="HUD" method="_on_voidClick"]
-[connection signal="HUD_state" from="FKLimb" to="." method="_on_body_HUD_state"]
 [connection signal="scale_changed" from="HUD" to="FKLimb" method="_on_HUD_scale_changed"]
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]

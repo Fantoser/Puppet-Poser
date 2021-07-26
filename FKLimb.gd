@@ -37,6 +37,7 @@ func load_limb_info():
 	button.connect( "button_down", self, "move_base", [true])
 	button.connect( "button_up", self, "move_base", [false])
 	get_child(0).add_child(button)
+	buttons.append(button)
 
 func add_button(parent):
 	if parent.get_child(0) is Position2D:
@@ -67,7 +68,6 @@ func start_moving(currentButton, currentLimb):
 	target = currentButton
 	limb = currentLimb
 #	print(currentTarget.get_parent().name)
-	emit_HUD_signal(false)
 
 func stop_moving(currentButton):
 	moving = false
@@ -81,10 +81,6 @@ func stop_moving(currentButton):
 	currentButton.rect_position.x += buttonDistance
 	if sprite.get_parent().get_child_count() > 2:
 		sprite.get_parent().get_child(0).position.x = buttonDistance
-	emit_HUD_signal(true)
-
-func emit_HUD_signal(state):
-	emit_signal("HUD_state", state)
 
 func calc_fk(target, limb):
 	if distance == null:

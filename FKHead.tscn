@@ -14,23 +14,6 @@ position = Vector2( 64, 0 )
 [node name="third" type="Position2D" parent="first/second"]
 position = Vector2( 64, 0 )
 
-[node name="fourth" type="Position2D" parent="first/second/third"]
-position = Vector2( 64, 0.420448 )
-
-[node name="ToolButton" type="ToolButton" parent="first/second/third"]
-margin_top = 32.0
-margin_right = 64.0
-margin_bottom = 96.0
-rect_rotation = -90.0
-focus_mode = 0
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Sprite" type="Sprite" parent="first/second/third"]
-position = Vector2( 32, 0 )
-texture = ExtResource( 2 )
-
 [node name="ToolButton" type="ToolButton" parent="first/second"]
 margin_top = 32.0
 margin_right = 64.0
@@ -43,6 +26,7 @@ __meta__ = {
 
 [node name="Sprite2" type="Sprite" parent="first/second"]
 position = Vector2( 31.9952, -9.91821e-05 )
+rotation = 1.5708
 texture = ExtResource( 2 )
 
 [node name="ToolButton" type="ToolButton" parent="first"]
@@ -57,5 +41,6 @@ __meta__ = {
 
 [node name="Sprite3" type="Sprite" parent="first"]
 position = Vector2( 32.2634, -9.91821e-05 )
+rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, 0.238 )
