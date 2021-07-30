@@ -1,23 +1,23 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Test.gd" type="Script" id=1]
-[ext_resource path="res://FKLimb.tscn" type="PackedScene" id=2]
+[ext_resource path="res://FKBody.tscn" type="PackedScene" id=1]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://IKLimb.tscn" type="PackedScene" id=3]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Editor.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 408.938, 301.572 )
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 
-[node name="FKLimb" parent="." instance=ExtResource( 2 )]
+[node name="FKBody" parent="." instance=ExtResource( 1 )]
 position = Vector2( 408.945, 588.904 )
 
 [node name="Arm" parent="." instance=ExtResource( 3 )]
 position = Vector2( 34.7766, 67.2912 )
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
+[node name="HUD" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 816.78
@@ -31,9 +31,9 @@ margin_bottom = -0.991149
 position = Vector2( 408.404, 301.751 )
 shape = SubResource( 1 )
 
-[connection signal="HUDstate" from="." to="FKLimb" method="_HUDstate"]
 [connection signal="HUDstate" from="." to="HUD" method="_HUDstate"]
 [connection signal="body_clicked" from="." to="HUD" method="_on_body_bodypart_clicked"]
 [connection signal="voidClick" from="." to="HUD" method="_on_voidClick"]
-[connection signal="scale_changed" from="HUD" to="FKLimb" method="_on_HUD_scale_changed"]
+[connection signal="scale_changed" from="HUD" to="FKBody" method="stop_moving"]
+[connection signal="send_bodyData" from="HUD" to="." method="_on_HUD_send_bodyData"]
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]

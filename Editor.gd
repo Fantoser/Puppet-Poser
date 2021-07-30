@@ -4,58 +4,63 @@ signal body_clicked(bodypart)
 signal voidClick()
 signal HUDstate(state)
 
-var limb = preload("res://FKLimb.tscn")
+var limb = preload("res://FKBody.tscn")
 var arm = preload("res://FKArm.tscn")
 var head = preload("res://FKHead.tscn")
 var buttons = []
 var body = {
-	hips = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	middle = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	chest = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	left_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	left_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	left_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	right_arm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	right_forearm = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	right_hand = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	neck = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]},
-	head = {object = null, image = null, position = Vector2(0, 0), scale = [0, 0]}
+	hips = {},
+	middle = {},
+	chest = {},
+	left_arm = {},
+	left_forearm = {},
+	left_hand = {},
+	right_arm = {},
+	right_forearm = {},
+	right_hand = {},
+	neck = {},
+	head = {}
 }
 
 func _ready():
 
-	setLimb($FKLimb, ["hips", "middle", "chest"], Vector2(0, 0), -90)
-	$FKLimb.set_z_index(-1)
-	for button in $FKLimb.buttons:
+	setLimb($FKBody, ["hips", "middle", "chest"], Vector2(0, 0), -90)
+	$FKBody.set_z_index(-1)
+	for button in $FKBody.buttons:
 		buttons.append(button)
+	$FKBody.root = self
 
 	var leftarm = arm.instance()
-	$FKLimb.get_node("first/second/third/fourth").add_child(leftarm)
+	$FKBody.get_node("first/second/third/fourth").add_child(leftarm)
 	setLimb(leftarm, ["left_arm", "left_forearm", "left_hand"], Vector2(100, 0), 90)
 	leftarm.set_z_index(1)
-	leftarm.connect("HUD_state", $FKLimb, "emit_HUD_signal")
+	leftarm.connect("HUD_state", $FKBody, "emit_HUD_signal")
 	for button in leftarm.buttons:
 		buttons.append(button)
+	leftarm.root = self
 
 	var rightarm = arm.instance()
-	$FKLimb.get_node("first/second/third/fourth").add_child(rightarm)
+	$FKBody.get_node("first/second/third/fourth").add_child(rightarm)
 	setLimb(rightarm, ["right_arm", "right_forearm", "right_hand"], Vector2(-100, 0), -90)
 	rightarm.set_z_index(1)
-	rightarm.connect("HUD_state", $FKLimb, "emit_HUD_signal")
+	rightarm.connect("HUD_state", $FKBody, "emit_HUD_signal")
 	for button in rightarm.buttons:
 		buttons.append(button)
+	rightarm.root = self
 
 	var neck = head.instance()
-	$FKLimb.get_node("first/second/third/fourth").add_child(neck)
+	$FKBody.get_node("first/second/third/fourth").add_child(neck)
 	for child in neck.get_node("first/second/third").get_children():
 		child.queue_free()
 	setLimb(neck, ["neck", "head"], Vector2(0, -30), 0)
 	neck.set_z_index(1)
-	neck.connect("HUD_state", $FKLimb, "emit_HUD_signal")
+	neck.connect("HUD_state", $FKBody, "emit_HUD_signal")
 	neck.load_limb_info()
 	for button in neck.buttons:
 		buttons.append(button)
-	
+	neck.root = self
+
+	print(body)
 
 func setLimb(limb, nameArray, position, rotation):
 	limb.global_position += position
@@ -67,11 +72,14 @@ func emit_body_signal(bodypart):
 
 func _process(delta):
 	if Input.is_action_just_pressed("W"):
-		$FKLimb.set_distance($FKLimb/first/second, 200)
-		$FKLimb.load_limb_info()
+		$FKBody.set_distance($FKBody/first/second, 200)
+		$FKBody.load_limb_info()
 	if Input.is_action_just_pressed("S"):
-		$FKLimb.set_distance($FKLimb/first/second, 100)
-		$FKLimb.load_limb_info()
+		$FKBody.set_distance($FKBody/first/second, 100)
+		$FKBody.load_limb_info()
+	if Input.is_action_just_pressed("Q"):
+		print(body)
+		print("==============")
 	if get_global_mouse_position().x > $HUD.rect_position.x:
 		if $HUD.HUD_active == false:
 			emit_signal("HUDstate", true)
@@ -91,10 +99,20 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 
 
 func _on_Area2D_mouse_entered():
-	for button in buttons:
-		button.visible = true
+#	for button in buttons:
+#		button.visible = true
+	pass
 
 
 func _on_Area2D_mouse_exited():
-	for button in buttons:
-		button.visible = false
+#	for button in buttons:
+#		button.visible = false
+	pass
+
+
+func _on_HUD_send_bodyData(bodypart, datas):
+	for data in datas:
+		body[bodypart][data] = datas[data]
+
+func _get_body():
+	return body

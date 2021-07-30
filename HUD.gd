@@ -1,6 +1,11 @@
 extends Control
 
-signal scale_changed(bodypart)
+signal scale_changed(button)
+signal send_bodyData(bodypart, datas)
+
+const POSSTEP = 0.1
+const SCALESTEP = 0.1
+const ROTSTEP = 0.1
 
 var bodyimage = {
 	hips = [],
@@ -30,48 +35,70 @@ onready var flipV = get_node("Bodypart/VBoxContainer2/HBoxContainer/CheckBox2")
 
 func _ready():
 	for part in bodyimage:
-		print(part.to_upper())
 		loadFolder(part)
 
 func _process(delta):
 	if bodypart != null:
+		var bodybutton = bodypart.get_parent().get_child(1)
+		var prevLimb = bodypart.get_parent().get_parent()
+		var defaultPos = Vector2(0, 0)
+		if prevLimb.get_child(1) is ToolButton:
+			defaultPos[0] = prevLimb.get_child(1).rect_size.y * prevLimb.get_child(1).rect_scale.y
 		if HUD_active == true: #Affecting the body when changing values in the HUD
 			#Position
-			var distance = bodyparent.get_child(0).position - bodypart.position
-			bodyparent.position.x = posYBox.value
-			bodyparent.position.y = posXBox.value
+			if bodyparent.position != Vector2(defaultPos[0] + posYBox.value, posXBox.value):
+				bodyparent.position.x = defaultPos[0] + posYBox.value
+				bodyparent.position.y = posXBox.value
+				var relativePos = Vector2(stepify(bodyparent.position.x - bodybutton.rect_size.y * bodybutton.rect_scale.y, POSSTEP), stepify(bodyparent.position.y, POSSTEP))
+				get_parent().body[bodybutton.name]["position"] = relativePos
 			#Rotation
-			bodyparent.global_rotation_degrees = rotateBox.value
+			if stepify(bodyparent.rotation_degrees, ROTSTEP) != stepify(rotateBox.value, ROTSTEP):
+				bodyparent.rotation_degrees = stepify(rotateBox.value, ROTSTEP)
+				get_parent().body[bodybutton.name]["rotation"] = bodyparent.rotation_degrees
 			#Flip
-			bodypart.flip_h = flipH.pressed
-			bodypart.flip_v = flipV.pressed
+			if bodypart.flip_h != flipH.pressed:
+				bodypart.flip_h = flipH.pressed
+				get_parent().body[bodybutton.name]["flipH"] = flipH.pressed
+			if bodypart.flip_v != flipV.pressed:
+				bodypart.flip_v = flipV.pressed
+				get_parent().body[bodybutton.name]["flipV"] = flipV.pressed
 			#Scale
 			if floor(bodypart.rotation_degrees) == 90:
-				if bodypart.scale.x != scaleXBox.value:
+				if stepify(bodypart.scale.x, SCALESTEP) != stepify(scaleXBox.value, SCALESTEP):
 					bodypart.scale.x = scaleXBox.value
 					bodypart.get_parent().get_child(1).rect_scale.x = scaleXBox.value
 					_on_scaleX_value_changed()
-				if bodypart.scale.y != scaleYBox.value:
+					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
+				if stepify(bodypart.scale.y, SCALESTEP) != stepify(scaleYBox.value, SCALESTEP):
 					bodypart.scale.y = scaleYBox.value
 					bodypart.get_parent().get_child(1).rect_scale.y = scaleYBox.value
 					_on_scaleY_value_changed()
+					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
 			else:
-				if bodypart.scale.y != scaleXBox.value:
-					bodypart.scale.y = scaleXBox.value
-					bodypart.get_parent().get_child(1).rect_scale.x = scaleXBox.value
+				if stepify(bodypart.scale.y, SCALESTEP) != stepify(scaleXBox.value, SCALESTEP):
+					bodypart.scale.y = stepify(scaleXBox.value, SCALESTEP)
+					bodypart.get_parent().get_child(1).rect_scale.x = stepify(scaleXBox.value, SCALESTEP)
 					_on_scaleX_value_changed()
-				if bodypart.scale.x != scaleYBox.value:
-					bodypart.scale.x = scaleYBox.value
-					bodypart.get_parent().get_child(1).rect_scale.y = scaleYBox.value
+					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
+				if stepify(bodypart.scale.x, SCALESTEP) != stepify(scaleYBox.value, SCALESTEP):
+					bodypart.scale.x = stepify(scaleYBox.value, SCALESTEP)
+					bodypart.get_parent().get_child(1).rect_scale.y = stepify(scaleYBox.value, SCALESTEP)
 					_on_scaleY_value_changed()
+					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
 			#Z index
-			bodyparent.z_index = zindexBox.value
+			if bodyparent.z_index != zindexBox.value:
+				bodyparent.z_index = zindexBox.value
+				get_parent().body[bodybutton.name]["z_index"] = bodyparent.z_index
 		else: #Set values in the HUD when changing on the body
 			#Position
-			posYBox.value = bodyparent.position.x
-			posXBox.value = bodyparent.position.y
+			if posYBox.value != bodyparent.position.x - defaultPos[0] or posXBox.value != bodyparent.position.y - defaultPos[1]:
+				posYBox.value = bodyparent.position.x - defaultPos[0]
+				posXBox.value = bodyparent.position.y - defaultPos[1]
+				get_parent().body[bodybutton.name]["position"] = bodyparent.position - defaultPos
 			#Rotation
-			rotateBox.value = bodyparent.global_rotation_degrees
+			if rotateBox.value != bodyparent.rotation_degrees:
+				rotateBox.value = bodyparent.rotation_degrees
+				get_parent().body[bodybutton.name]["rotation"] = bodyparent.rotation_degrees
 
 func _on_body_bodypart_clicked(chosenBodypart):
 	$Bodypart.visible = true # Showing the bodypart menu
@@ -84,7 +111,7 @@ func _on_body_bodypart_clicked(chosenBodypart):
 	posYBox.value = bodyparent.position.x
 	posXBox.value = bodyparent.position.y
 	#Rotation
-	rotateBox.value = bodypart.get_parent().global_rotation_degrees
+	rotateBox.value = bodyparent.rotation_degrees
 	#Flip
 	flipH.pressed = bodypart.flip_h
 	flipV.pressed = bodypart.flip_v
@@ -103,10 +130,15 @@ func _on_body_bodypart_clicked(chosenBodypart):
 		imgList.add_item(part[0], part[1])
 
 func _on_scaleY_value_changed():
-	if floor(bodypart.rotation_degrees) == 90:
-		bodypart.position.x = (bodypart.texture.get_height() * bodypart.scale.y)/2
-	else:
-		bodypart.position.x = (bodypart.texture.get_width() * bodypart.scale.x)/2
+	var bodybutton = bodypart.get_parent().get_child(1)
+#	if floor(bodypart.rotation_degrees) == 90:
+#		bodypart.position.x = bodybutton.rect_size.y * bodybutton.rect_scale.y + get_parent().body[bodypart.get_parent().get_child(1).name]["position"][1]
+#	else:
+#		bodypart.position.x = (bodypart.texture.get_width() * bodypart.scale.x)/2
+	bodypart.position.x = (bodybutton.rect_size.y * bodybutton.rect_scale.y)/2
+	if bodypart.get_parent().get_child(0).get_child_count() > 2:
+		var nextLimb = bodypart.get_parent().get_child(0)
+		nextLimb.position.x = bodybutton.rect_size.y * bodybutton.rect_scale.y
 	var button = bodypart.get_parent().get_child(3)
 	emit_signal("scale_changed", button)
 
@@ -125,6 +157,7 @@ func loadFolder(partname):
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
+	print(partname.to_upper())
 	while true:
 		var file_name = dir.get_next()
 		if file_name == "":
@@ -138,14 +171,22 @@ func loadFolder(partname):
 
 func _on_ImageList_item_activated(index):
 	bodypart.texture = imgList.get_item_icon(index)
-	if floor(bodypart.rotation_degrees) == 90:
-		bodypart.get_parent().get_child(1).rect_size = bodypart.texture.get_size()
-	else:
-		bodypart.get_parent().get_child(1).rect_size.x = bodypart.texture.get_height()
-		bodypart.get_parent().get_child(1).rect_size.y = bodypart.texture.get_width()
+#	if floor(bodypart.rotation_degrees) == 90:
+#		bodypart.get_parent().get_child(1).rect_size = bodypart.texture.get_size()
+#	else:
+	bodypart.get_parent().get_child(1).rect_size.x = bodypart.texture.get_height()
+	bodypart.get_parent().get_child(1).rect_size.y = bodypart.texture.get_width()
 	_on_scaleY_value_changed()
 	_on_scaleX_value_changed()
 
+func emit_bodyData(bodyparent):
+#	bodypart, position, scale, rotation, flipH, flipV, z_index, image
+	var bodyChild = bodyparent.get_child(2)
+	var relativePos = bodyparent.position
+	if bodyparent.get_parent().get_child(1) is ToolButton:
+		relativePos[0] = bodyparent.position.x - bodyparent.get_parent().get_child(1).rect_size.y * bodyparent.get_parent().get_child(1).rect_scale.y
+	emit_signal("send_bodyData", bodyparent.get_child(1).name, {position = relativePos, scale = bodyChild.scale,
+		rotation = bodyparent.rotation, flipH = bodyChild.flip_h, flilpV = bodyChild.flip_v, z_index = bodyparent.z_index, image = bodyChild.texture})
 
 func _HUDstate(state):
 	HUD_active = state

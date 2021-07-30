@@ -22,7 +22,6 @@ var targetDistance = null
  
 func _ready():
 	load_limb_info()
-	pass
  
 func load_limb_info():
 	var obj = get_child(0)

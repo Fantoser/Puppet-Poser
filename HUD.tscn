@@ -356,6 +356,7 @@ mouse_filter = 1
 size_flags_vertical = 8
 min_value = -180.0
 max_value = 180.0
+step = 0.1
 suffix = "°"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
