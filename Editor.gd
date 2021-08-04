@@ -21,6 +21,7 @@ var body = {
 	neck = {},
 	head = {}
 }
+var poses = {}
 
 func _ready():
 
@@ -71,25 +72,17 @@ func emit_body_signal(bodypart):
 	emit_signal("body_clicked", bodypart)
 
 func _process(delta):
-	if Input.is_action_just_pressed("W"):
-		$FKBody.set_distance($FKBody/first/second, 200)
-		$FKBody.load_limb_info()
-	if Input.is_action_just_pressed("S"):
-		$FKBody.set_distance($FKBody/first/second, 100)
-		$FKBody.load_limb_info()
 	if Input.is_action_just_pressed("Q"):
-		print(body)
 		print("==============")
+		print(body)
 	if get_global_mouse_position().x > $HUD.rect_position.x:
 		if $HUD.HUD_active == false:
 			emit_signal("HUDstate", true)
-#			print(get_global_mouse_position().x)
 			for button in buttons:
 				button.visible = false
 	else:
 		if $HUD.HUD_active == true and $HUD.focus == false:
 			emit_signal("HUDstate", false)
-#			print(get_global_mouse_position().x)
 			for button in buttons:
 				button.visible = true
 
@@ -97,22 +90,13 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("mouseLeft"):
 		emit_signal("voidClick")
 
-
-func _on_Area2D_mouse_entered():
-#	for button in buttons:
-#		button.visible = true
-	pass
-
-
-func _on_Area2D_mouse_exited():
-#	for button in buttons:
-#		button.visible = false
-	pass
-
-
 func _on_HUD_send_bodyData(bodypart, datas):
 	for data in datas:
 		body[bodypart][data] = datas[data]
 
 func _get_body():
 	return body
+
+func set_limb_rotation(bodypart_name, rot):
+	body[bodypart_name]["rotation"] = rot
+	pass

@@ -4,11 +4,11 @@ var root
 var joints = []
 var buttons = []
 var total_length = 0
-var distance = null
 var moving = false
 var target = null
 var limb = null
 var movebase = false
+var editor = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,7 +67,6 @@ func start_moving(currentButton, currentLimb):
 
 func stop_moving(currentButton):
 	moving = false
-	distance = null
 	#Positioning the button
 	var sprite = currentButton.get_parent().get_child(2)
 	var buttonDistance = sprite.texture.get_height() * sprite.scale.y
@@ -79,19 +78,13 @@ func stop_moving(currentButton):
 ##		sprite.get_parent().get_child(0).position = root.body[currentButton.get_parent().get_child(1).name]["position"]
 #		sprite.get_parent().get_child(0).position.x = buttonDistance
 
-func calc_fk(currentTarget, currentLimb):
-	if distance == null:
-		distance = get_global_mouse_position() - target.rect_global_position
-	currentTarget.rect_global_position = get_global_mouse_position() - distance
-	var offset = (target.rect_global_position + target.rect_pivot_offset) - limb.global_position
+func calc_fk(currentButton, currentLimb):
+	var buttonPos = currentButton.get_parent().global_position.distance_to(get_global_mouse_position())
+	currentButton.rect_position.x = buttonPos - (currentButton.rect_size.x/2)
+	var offset = get_global_mouse_position() - limb.global_position
 	var r = atan2(offset.y, offset.x)
 	currentLimb.global_rotation = r
-#	if offset.length() > total_length:
-#		for joint in joints:
-#			joint[0].rotation = 0
-#			#joint[2].position = joint[1]
-#		var r = atan2(offset.y, offset.x)
-#		joints[0][0].global_rotation = r
+	editor.body[currentLimb.get_child(1).name]["rotation"] = stepify(currentLimb.rotation_degrees, 0.1)
 
 func set_distance(currentLimb, currentDistance):
 	var direction = (limb.global_position - limb.get_parent().global_position).normalized()
@@ -101,7 +94,8 @@ func set_distance(currentLimb, currentDistance):
 func move_base(state):
 	movebase = state
 
-func rename(limb, names, editor):
+func rename(limb, names, editorObject):
+	editor = editorObject
 	if limb.get_child_count() > 1 and names.size() > 0:
 		limb.get_child(1).name = names[0]
 		limb.get_child(1).connect("button_down", editor, "emit_body_signal", [limb.get_child(2)])
@@ -110,10 +104,10 @@ func rename(limb, names, editor):
 			defaultDistance[0] = limb.get_parent().get_child(1).rect_size.y * limb.get_parent().get_child(1).rect_scale.y
 		editor.body[names[0]] = {
 			object = limb,
-			image = limb.get_child(2).texture,
+			image = "icon",
 			position = limb.position - defaultDistance,
 			scale = limb.get_child(2).scale,
-			rotation = limb.global_rotation_degrees,
+			rotation = limb.rotation_degrees,
 			flipH = limb.get_child(2).flip_h,
 			flipV = limb.get_child(2).flip_v,
 			z_index = limb.z_index
