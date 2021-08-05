@@ -52,10 +52,15 @@ func _process(delta):
 		if HUD_active == true and $Bodypart.visible == true: #Affecting the body when changing values in the HUD
 			#Position
 			if bodyParent.position != Vector2(defaultPos[0] + posYBox.value, posXBox.value):
-				bodyParent.position.x = defaultPos[0] + posYBox.value
-				bodyParent.position.y = posXBox.value
-				var relativePos = Vector2(stepify(bodyParent.position.x - bodybutton.rect_size.y * bodybutton.rect_scale.y, POSSTEP), stepify(bodyParent.position.y, POSSTEP))
-				get_parent().body[bodybutton.name]["position"] = relativePos
+				if bodyParent.get_parent() is Position2D:
+					bodyParent.position.x = defaultPos[0] + posYBox.value
+					bodyParent.position.y = posXBox.value
+					var relativePos = Vector2(stepify(bodyParent.position.x - bodybutton.rect_size.y * bodybutton.rect_scale.y, POSSTEP), stepify(bodyParent.position.y, POSSTEP))
+					get_parent().body[bodybutton.name]["position"] = relativePos
+				else:
+					bodyParent.get_parent().global_position.x = stepify(posXBox.value, POSSTEP)
+					bodyParent.get_parent().global_position.y = stepify(posYBox.value, POSSTEP)
+					get_parent().body[bodybutton.name]["position"] = bodyParent.get_parent().global_position
 			#Rotation
 			if stepify(bodyParent.rotation_degrees, ROTSTEP) != stepify(rotateBox.value, ROTSTEP):
 				bodyParent.rotation_degrees = stepify(rotateBox.value, ROTSTEP)
@@ -72,7 +77,7 @@ func _process(delta):
 				if stepify(bodypart.scale.x, SCALESTEP) != stepify(scaleXBox.value, SCALESTEP):
 					bodypart.scale.x = scaleXBox.value
 					bodypart.get_parent().get_child(1).rect_scale.x = scaleXBox.value
-					_on_scaleX_value_changed()
+					_on_scale_value_changed()
 					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
 				if stepify(bodypart.scale.y, SCALESTEP) != stepify(scaleYBox.value, SCALESTEP):
 					bodypart.scale.y = scaleYBox.value
@@ -83,7 +88,7 @@ func _process(delta):
 				if stepify(bodypart.scale.y, SCALESTEP) != stepify(scaleXBox.value, SCALESTEP):
 					bodypart.scale.y = stepify(scaleXBox.value, SCALESTEP)
 					bodypart.get_parent().get_child(1).rect_scale.x = stepify(scaleXBox.value, SCALESTEP)
-					_on_scaleX_value_changed()
+					_on_scale_value_changed()
 					get_parent().body[bodybutton.name]["scale"] = bodypart.scale
 				if stepify(bodypart.scale.x, SCALESTEP) != stepify(scaleYBox.value, SCALESTEP):
 					bodypart.scale.x = stepify(scaleYBox.value, SCALESTEP)
@@ -96,10 +101,11 @@ func _process(delta):
 				get_parent().body[bodybutton.name]["z_index"] = bodyParent.z_index
 		else: #Set values in the HUD when changing on the body
 			#Position
-			if posYBox.value != bodyParent.position.x - defaultPos[0] or posXBox.value != bodyParent.position.y - defaultPos[1]:
-				posYBox.value = bodyParent.position.x - defaultPos[0]
-				posXBox.value = bodyParent.position.y - defaultPos[1]
-				get_parent().body[bodybutton.name]["position"] = bodyParent.position - defaultPos
+			if bodyParent.get_parent() is Position2D:
+				if posYBox.value != bodyParent.position.x - defaultPos[0] or posXBox.value != bodyParent.position.y - defaultPos[1]:
+					posYBox.value = bodyParent.position.x - defaultPos[0]
+					posXBox.value = bodyParent.position.y - defaultPos[1]
+					get_parent().body[bodybutton.name]["position"] = bodyParent.position - defaultPos
 			#Rotation
 			if stepify(rotateBox.value, ROTSTEP) != stepify(bodyParent.rotation_degrees, ROTSTEP):
 				rotateBox.value = stepify(bodyParent.rotation_degrees, ROTSTEP)
@@ -111,17 +117,20 @@ func _on_body_bodypart_clicked(chosenBodypart):
 	bodypart = chosenBodypart
 	bodyParent = bodypart.get_parent()
 	bodyButton = bodyParent.get_child(1)
-	var partName = bodypart.get_parent().get_child(1).name.split("_")[-1]
+	var partName = bodyButton.name.split("_")[-1]
 	# Set the top title to bodypart's name
 	get_node("Bodypart/VBoxContainer2/Name").text = bodyParent.get_child(1).name.to_upper()
 	#Position
 	var defaultPos = Vector2(0, 0)
 	if bodyParent.get_parent() is Position2D:
-		var prevLimb = bodypart.get_parent().get_parent()
+		var prevLimb = bodyParent.get_parent()
 		if prevLimb.get_child(1) is ToolButton:
 			defaultPos[0] = prevLimb.get_child(1).rect_size.y * prevLimb.get_child(1).rect_scale.y
 	posYBox.value = bodyParent.position.x - defaultPos[0]
 	posXBox.value = bodyParent.position.y
+	if !bodyParent.get_parent() is Position2D:
+		posXBox.value = stepify(bodyParent.get_parent().global_position.x, POSSTEP)
+		posYBox.value = stepify(bodyParent.get_parent().global_position.y, POSSTEP)
 	#Rotation
 	rotateBox.value = bodyParent.rotation_degrees
 	#Flip
@@ -156,10 +165,6 @@ func position(pos):
 func _on_scale_value_changed():
 	bodyButton.rect_size.x = bodypart.texture.get_height()
 	bodyButton.rect_size.y = bodypart.texture.get_width()
-#	if floor(bodypart.rotation_degrees) == 90:
-#		bodypart.position.x = bodybutton.rect_size.y * bodybutton.rect_scale.y + get_parent().body[bodypart.get_parent().get_child(1).name]["position"][1]
-#	else:
-#		bodypart.position.x = (bodypart.texture.get_width() * bodypart.scale.x)/2
 	bodyButton.rect_position.y = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
 	bodypart.position.x = (bodyButton.rect_size.y * bodyButton.rect_scale.y)/2
 	if bodypart.get_parent().get_child(0).get_child_count() > 2:
@@ -167,11 +172,6 @@ func _on_scale_value_changed():
 		nextLimb.position.x = bodyButton.rect_size.y * bodyButton.rect_scale.y
 	var button = bodypart.get_parent().get_child(3)
 	emit_signal("scale_changed", button)
-
-
-func _on_scaleX_value_changed():
-	var bodyButton = bodypart.get_parent().get_child(1)
-	bodyButton.rect_position.y = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
 
 
 func _on_voidClick():
@@ -250,5 +250,8 @@ func _on_PoseList_item_activated(index):
 			bodyButton.rect_scale.x = pose[currentPart]["scale"][1]
 			bodyButton.rect_scale.y = pose[currentPart]["scale"][0]
 		bodypart.scale = pose[currentPart]["scale"]
-		position(pose[currentPart]["position"])
+		if bodyParent.get_parent() is Position2D:
+			position(pose[currentPart]["position"])
+		else:
+			bodyParent.get_parent().global_position = pose[currentPart]["position"]
 		_on_scale_value_changed()

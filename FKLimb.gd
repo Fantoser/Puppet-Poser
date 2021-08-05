@@ -102,10 +102,13 @@ func rename(limb, names, editorObject):
 		var defaultDistance = Vector2(0, 0)
 		if limb.get_parent().get_child(1) is ToolButton:
 			defaultDistance[0] = limb.get_parent().get_child(1).rect_size.y * limb.get_parent().get_child(1).rect_scale.y
+		var currentPos = limb.position - defaultDistance
+		if !limb.get_parent() is Position2D:
+			currentPos = limb.get_parent().global_position
 		editor.body[names[0]] = {
 			object = limb,
 			image = "icon",
-			position = limb.position - defaultDistance,
+			position = currentPos,
 			scale = limb.get_child(2).scale,
 			rotation = limb.rotation_degrees,
 			flipH = limb.get_child(2).flip_h,
@@ -122,6 +125,8 @@ func _process(delta):
 	if movebase == true:
 #		var currentDistance = get_global_mouse_position() - self.global_position
 		self.global_position = get_global_mouse_position()
+		var currentLimb = self.get_child(0).get_child(1).name
+		editor.body[currentLimb]["position"] = self.global_position
 
 #func _draw():
 #	#var col = Color(1, 1, 1)
