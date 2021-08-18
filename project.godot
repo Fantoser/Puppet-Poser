@@ -24,6 +24,10 @@ config/name="Puppet Poser"
 run/main_scene="res://Editor.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
 [input]
 
 W={

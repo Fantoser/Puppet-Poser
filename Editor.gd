@@ -61,7 +61,6 @@ func _ready():
 		buttons.append(button)
 	neck.root = self
 
-	print(body)
 
 func setLimb(limb, nameArray, position, rotation):
 	limb.global_position += position

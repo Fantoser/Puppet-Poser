@@ -166,7 +166,10 @@ func _on_scale_value_changed():
 	bodyButton.rect_size.x = bodypart.texture.get_height()
 	bodyButton.rect_size.y = bodypart.texture.get_width()
 	bodyButton.rect_position.y = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
-	bodypart.position.x = (bodyButton.rect_size.y * bodyButton.rect_scale.y)/2
+	if bodypart.rotation_degrees == 90:
+		bodypart.position.x = (bodyButton.rect_size.y * bodyButton.rect_scale.y)/2
+	else:
+		bodypart.position.x = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
 	if bodypart.get_parent().get_child(0).get_child_count() > 2:
 		var nextLimb = bodypart.get_parent().get_child(0)
 		nextLimb.position.x = bodyButton.rect_size.y * bodyButton.rect_scale.y
