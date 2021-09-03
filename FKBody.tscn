@@ -22,6 +22,8 @@ margin_top = 32.0
 margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
+focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,6 +39,7 @@ margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
 focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,6 +55,7 @@ margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
 focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }

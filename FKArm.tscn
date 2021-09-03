@@ -23,6 +23,7 @@ margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
 focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -37,6 +38,7 @@ margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
 focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -51,11 +53,11 @@ margin_right = 64.0
 margin_bottom = 96.0
 rect_rotation = -90.0
 focus_mode = 0
+enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Sprite3" type="Sprite" parent="first"]
-position = Vector2( 32.2634, -9.91821e-05 )
+position = Vector2( 32, 0 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, 0.238 )

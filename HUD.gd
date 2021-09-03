@@ -1,5 +1,10 @@
 extends Control
 
+# Position2D - Bodyparent
+#	|
+#	 - ToolButton - BodyButton
+#	 - Sprite - Bodypart
+
 signal scale_changed(button)
 signal send_bodyData(bodypart, datas)
 
@@ -163,13 +168,16 @@ func position(pos):
 		get_parent().body[bodyButton.name]["position"] = pos
 
 func _on_scale_value_changed():
-	bodyButton.rect_size.x = bodypart.texture.get_height()
-	bodyButton.rect_size.y = bodypart.texture.get_width()
-	bodyButton.rect_position.y = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
-	if bodypart.rotation_degrees == 90:
-		bodypart.position.x = (bodyButton.rect_size.y * bodyButton.rect_scale.y)/2
+	print(stepify(bodypart.rotation_degrees, 1))
+	if stepify(bodypart.rotation_degrees, 1) == 90:
+		bodyButton.rect_size.x = bodypart.texture.get_width()
+		bodyButton.rect_size.y = bodypart.texture.get_height()
+		bodypart.position.x = (bodypart.texture.get_height() * bodypart.scale.y)/2
 	else:
-		bodypart.position.x = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
+		bodyButton.rect_size.x = bodypart.texture.get_height()
+		bodyButton.rect_size.y = bodypart.texture.get_width()
+		bodypart.position.x = (bodypart.texture.get_width() * bodypart.scale.x)/2
+	bodyButton.rect_position.y = (bodyButton.rect_size.x * bodyButton.rect_scale.x)/2
 	if bodypart.get_parent().get_child(0).get_child_count() > 2:
 		var nextLimb = bodypart.get_parent().get_child(0)
 		nextLimb.position.x = bodyButton.rect_size.y * bodyButton.rect_scale.y
