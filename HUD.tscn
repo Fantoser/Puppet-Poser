@@ -8,10 +8,7 @@
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.1673
-margin_top = -5.99115
-margin_right = 3.16736
-margin_bottom = -5.99121
+margin_bottom = -6.10352e-05
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -40,7 +37,6 @@ __meta__ = {
 }
 
 [node name="Character menu" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 1
@@ -48,17 +44,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Character menu"]
-margin_top = 13.0
-margin_right = 206.0
-margin_bottom = 582.0
-grow_vertical = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="Character menu"]
+margin_left = 1.0
+margin_top = 6.0
+margin_right = 204.0
+margin_bottom = 592.0
+scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Character" type="Label" parent="Character menu/VBoxContainer"]
-margin_right = 206.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Character menu/ScrollContainer"]
+margin_right = 203.0
+margin_bottom = 266.0
+grow_vertical = 0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="Label" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_right = 203.0
 margin_bottom = 14.0
 text = "CHARACTER"
 align = 1
@@ -66,10 +72,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Save Character" type="Button" parent="Character menu/VBoxContainer"]
-margin_left = 23.0
+[node name="Save Character" type="Button" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_left = 21.0
 margin_top = 18.0
-margin_right = 183.0
+margin_right = 181.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 160, 0 )
 focus_mode = 0
@@ -78,10 +84,10 @@ size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "SAVE CHARACTER"
 
-[node name="Load Character" type="Button" parent="Character menu/VBoxContainer"]
-margin_left = 23.0
+[node name="Load Character" type="Button" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_left = 21.0
 margin_top = 42.0
-margin_right = 183.0
+margin_right = 181.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 160, 0 )
 focus_mode = 0
@@ -90,44 +96,44 @@ size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "LOAD CHARACTER"
 
-[node name="Name" type="Label" parent="Character menu/VBoxContainer"]
-margin_left = 23.0
+[node name="Name" type="Label" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_left = 21.0
 margin_top = 66.0
-margin_right = 183.0
+margin_right = 181.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 4
 text = "NAME"
 
-[node name="TextEdit" type="TextEdit" parent="Character menu/VBoxContainer"]
-margin_left = 23.0
+[node name="TextEdit" type="TextEdit" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_left = 21.0
 margin_top = 84.0
-margin_right = 183.0
+margin_right = 181.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 160, 20 )
 mouse_filter = 1
 size_flags_horizontal = 4
 
-[node name="Pose Library" type="Label" parent="Character menu/VBoxContainer"]
-margin_left = 23.0
+[node name="Pose Library" type="Label" parent="Character menu/ScrollContainer/VBoxContainer"]
+margin_left = 21.0
 margin_top = 108.0
-margin_right = 183.0
+margin_right = 181.0
 margin_bottom = 138.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
 text = "POSE LIBRARY"
 valign = 2
 
-[node name="PoseMessage" type="Label" parent="Character menu/VBoxContainer"]
+[node name="PoseMessage" type="Label" parent="Character menu/ScrollContainer/VBoxContainer"]
 visible = false
 margin_top = 142.0
 margin_right = 206.0
 margin_bottom = 156.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Character menu/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Character menu/ScrollContainer/VBoxContainer"]
 margin_top = 142.0
-margin_right = 206.0
-margin_bottom = 569.0
+margin_right = 203.0
+margin_bottom = 266.0
 size_flags_horizontal = 5
 size_flags_vertical = 3
 alignment = 1
@@ -135,36 +141,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Character menu/VBoxContainer/HBoxContainer2"]
-margin_left = 24.0
-margin_right = 149.0
-margin_bottom = 427.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 23.0
+margin_right = 148.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 125, 0 )
 size_flags_horizontal = 5
 size_flags_vertical = 3
 
-[node name="PoseInput" type="TextEdit" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="PoseInput" type="TextEdit" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_right = 125.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 75, 20 )
 mouse_filter = 1
 
-[node name="PoseList" type="ItemList" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="PoseList" type="ItemList" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 24.0
 margin_right = 125.0
-margin_bottom = 427.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 0, 100 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Character menu/VBoxContainer/HBoxContainer2"]
-margin_left = 153.0
-margin_right = 181.0
-margin_bottom = 427.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 152.0
+margin_right = 180.0
+margin_bottom = 124.0
 size_flags_horizontal = 5
 
-[node name="Save Pose" type="Button" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Save Pose" type="Button" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_right = 28.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
@@ -174,12 +180,12 @@ mouse_filter = 1
 enabled_focus_mode = 0
 icon = ExtResource( 1 )
 
-[node name="HSeparator" type="HSeparator" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 34.0
 margin_right = 28.0
 margin_bottom = 38.0
 
-[node name="Delete Pose" type="Button" parent="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Delete Pose" type="Button" parent="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 42.0
 margin_right = 28.0
 margin_bottom = 64.0
@@ -189,6 +195,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 2 )
 
 [node name="Bodypart" type="Control" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 1
@@ -197,17 +204,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Bodypart"]
-margin_top = 13.0
-margin_right = 207.0
-margin_bottom = 582.0
-grow_vertical = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="Bodypart"]
+margin_left = -1.0
+margin_top = 5.0
+margin_right = 205.0
+margin_bottom = 603.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_right = 207.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="Bodypart/ScrollContainer"]
+margin_right = 206.0
+margin_bottom = 750.0
+grow_vertical = 0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_right = 194.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 text = "NAME"
@@ -216,46 +232,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Add Object" type="Button" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
+[node name="Add Object" type="Button" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
 margin_top = 24.0
-margin_right = 183.0
+margin_right = 177.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 160, 10 )
 focus_mode = 0
 mouse_filter = 1
 size_flags_horizontal = 4
 enabled_focus_mode = 0
-text = "ADD OBJECT"
+text = "ADD CHILD"
 
-[node name="Position" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
+[node name="Bodypart collButton" type="ToolButton" parent="Bodypart/ScrollContainer/VBoxContainer2"]
 margin_top = 48.0
-margin_right = 183.0
-margin_bottom = 78.0
+margin_right = 194.0
+margin_bottom = 70.0
+action_mode = 0
+
+[node name="Bodypart collLabel" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Bodypart collButton"]
+margin_right = 206.0
+margin_bottom = 24.0
+text = "v Bodypart settings"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 74.0
+margin_right = 177.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
 text = "POSITION"
 valign = 2
 
-[node name="Horizontal" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 12.0
-margin_top = 82.0
-margin_right = 195.0
-margin_bottom = 106.0
+[node name="Part Pos container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 5.0
+margin_top = 108.0
+margin_right = 188.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="X" type="Label" parent="Bodypart/VBoxContainer2/Horizontal"]
+[node name="X" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container"]
 margin_top = 5.0
 margin_right = 12.0
 margin_bottom = 19.0
 text = "X:"
 
-[node name="SpinBox" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal"]
+[node name="SpinBox" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container"]
 margin_left = 16.0
 margin_right = 90.0
 margin_bottom = 24.0
@@ -265,14 +297,14 @@ max_value = 1e+18
 allow_greater = true
 allow_lesser = true
 
-[node name="Y" type="Label" parent="Bodypart/VBoxContainer2/Horizontal"]
+[node name="Y" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container"]
 margin_left = 94.0
 margin_top = 5.0
 margin_right = 105.0
 margin_bottom = 19.0
 text = "Y:"
 
-[node name="SpinBox2" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal"]
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container"]
 margin_left = 109.0
 margin_right = 183.0
 margin_bottom = 24.0
@@ -282,34 +314,34 @@ max_value = 1e+18
 allow_greater = true
 allow_lesser = true
 
-[node name="Scale" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 110.0
-margin_right = 183.0
-margin_bottom = 140.0
+[node name="Scale" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 136.0
+margin_right = 177.0
+margin_bottom = 166.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
 text = "SCALE"
 valign = 2
 
-[node name="Horizontal2" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 12.0
-margin_top = 144.0
-margin_right = 195.0
-margin_bottom = 168.0
+[node name="Part Scale container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 5.0
+margin_top = 170.0
+margin_right = 188.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="X" type="Label" parent="Bodypart/VBoxContainer2/Horizontal2"]
+[node name="X" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container"]
 margin_top = 5.0
 margin_right = 12.0
 margin_bottom = 19.0
 text = "X:"
 
-[node name="SpinBox2" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal2"]
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container"]
 margin_left = 16.0
 margin_right = 90.0
 margin_bottom = 24.0
@@ -320,14 +352,14 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="Y" type="Label" parent="Bodypart/VBoxContainer2/Horizontal2"]
+[node name="Y" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container"]
 margin_left = 94.0
 margin_top = 5.0
 margin_right = 105.0
 margin_bottom = 19.0
 text = "Y:"
 
-[node name="SpinBox" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal2"]
+[node name="SpinBox" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container"]
 margin_left = 109.0
 margin_right = 183.0
 margin_bottom = 24.0
@@ -339,11 +371,11 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="Horizontal3" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 172.0
-margin_right = 183.0
-margin_bottom = 212.0
+[node name="Part Rot container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 198.0
+margin_right = 177.0
+margin_bottom = 238.0
 rect_min_size = Vector2( 160, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -351,7 +383,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rotation" type="Label" parent="Bodypart/VBoxContainer2/Horizontal3"]
+[node name="Rotation" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Rot container"]
 margin_top = 20.0
 margin_right = 68.0
 margin_bottom = 40.0
@@ -361,7 +393,7 @@ size_flags_vertical = 8
 text = "ROTATION"
 valign = 1
 
-[node name="SpinBox2" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal3"]
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Part Rot container"]
 margin_left = 72.0
 margin_top = 16.0
 margin_right = 146.0
@@ -373,11 +405,172 @@ max_value = 180.0
 step = 0.1
 suffix = "°"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 28.0
-margin_top = 216.0
-margin_right = 179.0
-margin_bottom = 256.0
+[node name="Image collButton" type="ToolButton" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_top = 242.0
+margin_right = 194.0
+margin_bottom = 264.0
+action_mode = 0
+
+[node name="Image collLabel" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image collButton"]
+margin_right = 206.0
+margin_bottom = 24.0
+text = "v Image settings"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 268.0
+margin_right = 177.0
+margin_bottom = 298.0
+rect_min_size = Vector2( 160, 30 )
+size_flags_horizontal = 4
+text = "POSITION"
+valign = 2
+
+[node name="Image Pos container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 5.0
+margin_top = 302.0
+margin_right = 188.0
+margin_bottom = 326.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="X" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container"]
+margin_top = 5.0
+margin_right = 12.0
+margin_bottom = 19.0
+text = "X:"
+
+[node name="SpinBox" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container"]
+margin_left = 16.0
+margin_right = 90.0
+margin_bottom = 24.0
+mouse_filter = 1
+min_value = -1e+18
+max_value = 1e+18
+allow_greater = true
+allow_lesser = true
+
+[node name="Y" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container"]
+margin_left = 94.0
+margin_top = 5.0
+margin_right = 105.0
+margin_bottom = 19.0
+text = "Y:"
+
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container"]
+margin_left = 109.0
+margin_right = 183.0
+margin_bottom = 24.0
+mouse_filter = 1
+min_value = -1e+18
+max_value = 1e+18
+allow_greater = true
+allow_lesser = true
+
+[node name="Scale2" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 330.0
+margin_right = 177.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 160, 30 )
+size_flags_horizontal = 4
+text = "SCALE"
+valign = 2
+
+[node name="Image Scale container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 5.0
+margin_top = 364.0
+margin_right = 188.0
+margin_bottom = 388.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="X" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container"]
+margin_top = 5.0
+margin_right = 12.0
+margin_bottom = 19.0
+text = "X:"
+
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container"]
+margin_left = 16.0
+margin_right = 90.0
+margin_bottom = 24.0
+min_value = -1e+18
+max_value = 1e+18
+step = 0.1
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="Y" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container"]
+margin_left = 94.0
+margin_top = 5.0
+margin_right = 105.0
+margin_bottom = 19.0
+text = "Y:"
+
+[node name="SpinBox" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container"]
+margin_left = 109.0
+margin_right = 183.0
+margin_bottom = 24.0
+mouse_filter = 1
+min_value = -1e+18
+max_value = 1e+18
+step = 0.1
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="Image Rot container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 392.0
+margin_right = 177.0
+margin_bottom = 432.0
+rect_min_size = Vector2( 160, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rotation" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Rot container"]
+margin_top = 20.0
+margin_right = 68.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "ROTATION"
+valign = 1
+
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Rot container"]
+margin_left = 72.0
+margin_top = 16.0
+margin_right = 146.0
+margin_bottom = 40.0
+mouse_filter = 1
+size_flags_vertical = 8
+min_value = -180.0
+max_value = 180.0
+step = 0.1
+suffix = "°"
+
+[node name="Image Flip container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 21.0
+margin_top = 436.0
+margin_right = 172.0
+margin_bottom = 476.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -385,7 +578,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Flip H" type="Label" parent="Bodypart/VBoxContainer2/HBoxContainer"]
+[node name="Flip H" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Flip container"]
 margin_top = 26.0
 margin_right = 41.0
 margin_bottom = 40.0
@@ -395,7 +588,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CheckBox" type="CheckBox" parent="Bodypart/VBoxContainer2/HBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Flip container"]
 margin_left = 45.0
 margin_top = 16.0
 margin_right = 69.0
@@ -404,7 +597,7 @@ focus_mode = 0
 mouse_filter = 1
 size_flags_vertical = 8
 
-[node name="Flip V" type="Label" parent="Bodypart/VBoxContainer2/HBoxContainer"]
+[node name="Flip V" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Flip container"]
 margin_left = 73.0
 margin_top = 26.0
 margin_right = 123.0
@@ -414,7 +607,7 @@ size_flags_vertical = 8
 text = "FLIP V"
 align = 2
 
-[node name="CheckBox2" type="CheckBox" parent="Bodypart/VBoxContainer2/HBoxContainer"]
+[node name="CheckBox2" type="CheckBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Image Flip container"]
 margin_left = 127.0
 margin_top = 16.0
 margin_right = 151.0
@@ -423,11 +616,27 @@ focus_mode = 0
 mouse_filter = 1
 size_flags_vertical = 8
 
-[node name="Horizontal4" type="HBoxContainer" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 260.0
-margin_right = 183.0
-margin_bottom = 300.0
+[node name="Image" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 47.0
+margin_top = 480.0
+margin_right = 147.0
+margin_bottom = 510.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+text = "     IMAGE"
+valign = 2
+
+[node name="ImageList" type="ItemList" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_top = 514.0
+margin_right = 194.0
+margin_bottom = 614.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="Z index container" type="HBoxContainer" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 618.0
+margin_right = 177.0
+margin_bottom = 658.0
 rect_min_size = Vector2( 160, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -435,7 +644,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Z index" type="Label" parent="Bodypart/VBoxContainer2/Horizontal4"]
+[node name="Z index" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2/Z index container"]
 margin_top = 20.0
 margin_right = 68.0
 margin_bottom = 40.0
@@ -445,7 +654,7 @@ size_flags_vertical = 8
 text = "Z INDEX"
 valign = 1
 
-[node name="SpinBox2" type="SpinBox" parent="Bodypart/VBoxContainer2/Horizontal4"]
+[node name="SpinBox2" type="SpinBox" parent="Bodypart/ScrollContainer/VBoxContainer2/Z index container"]
 margin_left = 72.0
 margin_top = 16.0
 margin_right = 146.0
@@ -453,73 +662,59 @@ margin_bottom = 40.0
 mouse_filter = 1
 size_flags_vertical = 8
 
-[node name="Image" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 304.0
-margin_right = 183.0
-margin_bottom = 334.0
-rect_min_size = Vector2( 160, 30 )
-size_flags_horizontal = 4
-text = "IMAGE"
-valign = 2
-
-[node name="ImageList" type="ItemList" parent="Bodypart/VBoxContainer2"]
-margin_left = 13.0
-margin_top = 338.0
-margin_right = 193.0
-margin_bottom = 438.0
-rect_min_size = Vector2( 180, 100 )
-mouse_filter = 1
-size_flags_horizontal = 4
-max_text_lines = 3
-max_columns = 2
-same_column_width = true
-icon_mode = 0
-fixed_icon_size = Vector2( 73, 73 )
-
-[node name="Perspective" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 442.0
-margin_right = 183.0
-margin_bottom = 472.0
+[node name="Perspective" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 662.0
+margin_right = 177.0
+margin_bottom = 692.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
 text = "PERSPECTIVE"
 valign = 2
 
-[node name="PerspectiveList" type="OptionButton" parent="Bodypart/VBoxContainer2"]
-margin_left = 13.0
-margin_top = 476.0
-margin_right = 193.0
-margin_bottom = 496.0
+[node name="PerspectiveList" type="OptionButton" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 7.0
+margin_top = 696.0
+margin_right = 187.0
+margin_bottom = 716.0
 rect_min_size = Vector2( 180, 0 )
 mouse_filter = 1
 size_flags_horizontal = 4
 
-[node name="Version" type="Label" parent="Bodypart/VBoxContainer2"]
-margin_left = 23.0
-margin_top = 500.0
-margin_right = 183.0
-margin_bottom = 530.0
+[node name="Version" type="Label" parent="Bodypart/ScrollContainer/VBoxContainer2"]
+margin_left = 17.0
+margin_top = 720.0
+margin_right = 177.0
+margin_bottom = 750.0
 rect_min_size = Vector2( 160, 30 )
 size_flags_horizontal = 4
 text = "VERSION"
 valign = 2
 
 [connection signal="focus_entered" from="." to="." method="_on_HUD_focus_entered"]
-[connection signal="item_activated" from="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer/PoseList" to="." method="_on_PoseList_item_activated"]
-[connection signal="pressed" from="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2/Save Pose" to="." method="_on_Save_Pose_pressed"]
-[connection signal="pressed" from="Character menu/VBoxContainer/HBoxContainer2/VBoxContainer2/Delete Pose" to="." method="_on_Delete_Pose_pressed"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal/SpinBox" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal/SpinBox" to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal/SpinBox2" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal/SpinBox2" to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox2" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox2" to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal2/SpinBox" to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal3/SpinBox2" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal3/SpinBox2" to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Bodypart/VBoxContainer2/Horizontal4/SpinBox2" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Bodypart/VBoxContainer2/Horizontal4/SpinBox2" to="." method="_on_mouse_exited"]
-[connection signal="item_activated" from="Bodypart/VBoxContainer2/ImageList" to="." method="_on_ImageList_item_activated"]
+[connection signal="item_activated" from="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer/PoseList" to="." method="_on_PoseList_item_activated"]
+[connection signal="pressed" from="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/Save Pose" to="." method="_on_Save_Pose_pressed"]
+[connection signal="pressed" from="Character menu/ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/Delete Pose" to="." method="_on_Delete_Pose_pressed"]
+[connection signal="pressed" from="Bodypart/ScrollContainer/VBoxContainer2/Add Object" to="." method="_on_Add_Object_pressed"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Part Pos container/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Part Scale container/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="value_changed" from="Bodypart/ScrollContainer/VBoxContainer2/Part Rot container/SpinBox2" to="." method="_on_Part_rotation_value_changed"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Image Pos container/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container/SpinBox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Image Scale container/SpinBox" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Image Rot container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Image Rot container/SpinBox2" to="." method="_on_mouse_exited"]
+[connection signal="item_activated" from="Bodypart/ScrollContainer/VBoxContainer2/ImageList" to="." method="_on_ImageList_item_activated"]
+[connection signal="mouse_entered" from="Bodypart/ScrollContainer/VBoxContainer2/Z index container/SpinBox2" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bodypart/ScrollContainer/VBoxContainer2/Z index container/SpinBox2" to="." method="_on_mouse_exited"]
